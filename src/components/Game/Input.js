@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-function Input() {
+function Input({ onGuess }) {
   const [guess, setGuess] = useState("");
 
   function handleChange(e) {
@@ -17,6 +17,8 @@ function Input() {
     console.log(formJson);
 
     setGuess("");
+
+    onGuess(formJson.guess);
   }
 
   return (
