@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-function Input({ onGuess }) {
+function Input({ onGuess, status }) {
   const [guess, setGuess] = useState("");
 
   function handleChange(e) {
@@ -33,6 +33,7 @@ function Input({ onGuess }) {
         name="guess"
         value={guess}
         onChange={handleChange}
+        disabled={status !== "playing"}
       />
     </form>
   );
