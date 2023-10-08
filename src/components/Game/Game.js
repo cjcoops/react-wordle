@@ -6,6 +6,7 @@ import { WORDS } from "../../data";
 import Input from "./Input";
 import Guesses from "./Guesses";
 import Banner from "./Banner";
+import Keyboard from "./Keyboard";
 import { checkGuess } from "../../game-helpers";
 import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 
@@ -34,6 +35,7 @@ function Game() {
       <Guesses guesses={guesses} answer={answer} />
       <Input onGuess={handleGuess} status={status} />
       <Banner status={status} guessesCount={guesses.length} answer={answer} />
+      <Keyboard guesses={guesses} />
     </>
   );
 }
