@@ -14,24 +14,19 @@ const answer = sample(WORDS);
 // To make debugging easier, we'll log the solution in the console.
 console.info({ answer });
 
-function getGameStatus(guesses) {
-  const lastGuess = guesses[guesses.length - 1];
-  if (lastGuess && lastGuess.every((letter) => letter.status === "correct")) {
-    return "won";
-  }
-  if (guesses.length === NUM_OF_GUESSES_ALLOWED) {
-    return "lost";
-  }
-  return "playing";
-}
-
 function Game() {
   const [guesses, setGuesses] = useState([]);
-
-  const status = getGameStatus(guesses);
+  const [status, setStatus] = useState("playing");
 
   function handleGuess(guess) {
-    setGuesses((prevGuesses) => [...prevGuesses, checkGuess(guess, answer)]);
+    const nextGuesses = [...guesses, checkGuess(guess, answer)];
+    setGuesses(nextGuesses);
+
+    if (guess === answer.toUpperCase()) {
+      setStatus("won");
+    } else if (nextGuesses.length === NUM_OF_GUESSES_ALLOWED) {
+      setStatus("lost");
+    }
   }
 
   return (
