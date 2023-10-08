@@ -10,12 +10,8 @@ import Keyboard from "./Keyboard";
 import { checkGuess } from "../../game-helpers";
 import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 
-// Pick a random word on every pageload.
-const answer = sample(WORDS);
-// To make debugging easier, we'll log the solution in the console.
-console.info({ answer });
-
 function Game() {
+  const [answer, setAnswer] = useState(sample(WORDS));
   const [guesses, setGuesses] = useState([]);
   const [status, setStatus] = useState("playing");
 
@@ -30,8 +26,23 @@ function Game() {
     }
   }
 
+  function handleRestartGame() {
+    setAnswer(sample(WORDS));
+    setGuesses([]);
+    setStatus("playing");
+  }
+
   return (
     <>
+      {status !== "playing" && (
+        <button
+          class="restart-button"
+          type="button"
+          onClick={handleRestartGame}
+        >
+          Restart Game!
+        </button>
+      )}
       <Guesses guesses={guesses} answer={answer} />
       <Input onGuess={handleGuess} status={status} />
       <Banner status={status} guessesCount={guesses.length} answer={answer} />
